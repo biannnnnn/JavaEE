@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.mybatis.mapper.UserMapper">
+    <select id="findUserByUsername" parameterType="java.lang.String" resultType="com.bdx.exp01.pojo.User">
+        SELECT * FROM user WHERE username LIKE '%${value}%';
+    </select>
+
+    <select id="findUserById" parameterType="int" resultType="com.bdx.exp01.pojo.User">
+        SELECT * FROM user WHERE id=#{id};
+    </select>
+
+    <insert id="insertUser" parameterType="com.bdx.exp01.pojo.User">
+        INSERT INTO user(username, password, gender, birthday, email, province, city)
+            VALUE(#{username}, #{password}, #{gender}, #{birthday, jdbcType=DATE}, #{email}, #{province}, #{city});
+    </insert>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM user WHERE id=#{id}
+    </delete>
+
+    <update id="updateUsername" parameterType="com.bdx.exp01.pojo.User">
+        UPDATE user SET username=#{username} where id=#{id};
+    </update>
+</mapper>

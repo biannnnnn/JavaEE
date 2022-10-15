@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Experiment01/Experiment01.iml" filepath="$PROJECT_DIR$/Experiment01/Experiment01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Experiment02/Experiment02.iml" filepath="$PROJECT_DIR$/Experiment02/Experiment02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Experiment03/Experiment03.iml" filepath="$PROJECT_DIR$/Experiment03/Experiment03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/experiment03/Experiment03_.iml" filepath="$PROJECT_DIR$/experiment03/Experiment03_.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Experiment03_Generator/Experiment03_Generator.iml" filepath="$PROJECT_DIR$/Experiment03_Generator/Experiment03_Generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Experiment04/Experiment04.iml" filepath="$PROJECT_DIR$/Experiment04/Experiment04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/untitled/experiment01.iml" filepath="$PROJECT_DIR$/untitled/experiment01.iml" />
+    </modules>
+  </component>
+</project>

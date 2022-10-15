@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdx.exp02.mapper.StudentMapper">
+    <resultMap id="ChosenCourseInfoMap" type="com.bdx.exp02.pojo.ChosenCourseItem">
+        <id column="sele_id" property="sele_id"/>
+        <result column="st_id" property="st_id"/>
+        <result column="semester" property="semester"/>
+        <result column="year" property="year"/>
+        <result column="st_num" property="st_num"/>
+        <result column="name" property="name"/>
+        <result column="cour_cout" property="cour_cout"/>
+        <result column="cour_score_num" property="cour_score_num"/>
+        <result column="period" property="period"/>
+        <result column="sele_num" property="sele_num"/>
+        <result column="req_num" property="req_num"/>
+        <association property="student" javaType="com.bdx.exp02.pojo.Student">
+            <id column="st_id" property="st_id"/>
+            <result column="st_num" property="st_num"/>
+            <result column="name" property="name"/>
+            <result column="college" property="college"/>
+            <result column="st_time" property="st_time"/>
+        </association>
+    </resultMap>
+    
+    <resultMap id="ChosenCourseAndChosenCourseDetailResultMap"
+               type="com.bdx.exp02.pojo.ChosenCourseItem" extends="ChosenCourseInfoMap">
+        <collection property="ccd" ofType="com.bdx.exp02.pojo.ChosenCourseDetail">
+            <id column="list_id" property="list_id"/>
+            <result column="sele_id" property="sele_id"/>
+            <result column="cour_id" property="cour_id"/>
+            <result column="cour_num" property="cour_num"/>
+            <result column="course" property="course"/>
+            <result column="period" property="period"/>
+        </collection>
+    </resultMap>
+
+    <select id="findChosenCourseStudent" resultType="com.bdx.exp02.pojo.ChosenCourseStudent">
+        SELECT
+        chosencourse.*,
+        student.college,
+        student.st_time
+        FROM
+        chosencourse,
+        student
+        WHERE chosencourse.st_id = student.st_id
+        AND Student.st_id = 1;
+    </select>
+
+    <select id="findChosenCourseAndChosenCourseDetail" resultMap="ChosenCourseAndChosenCourseDetailResultMap">
+        SELECT
+            chosencourse.*,
+            student.college,
+            student.st_time,
+            chosencoursedetail.cour_num,
+            chosencoursedetail.course
+        FROM
+            chosencourse,
+            student,
+            chosencoursedetail
+        WHERE
+            student.st_id = 1 AND
+            chosencourse.st_id = student.st_id AND
+            chosencourse.sele_id = chosencoursedetail.sele_id;
+    </select>
+
+    <select id="findStudentAndCourse" resultMap="ChosenCourseAndChosenCourseDetailResultMap">
+        SELECT
+        chosencourse.*,
+        student.college,
+        student.st_time,
+        chosencoursedetail.cour_num,
+        chosencoursedetail.course
+        FROM
+        chosencourse,
+        student,
+        chosencoursedetail
+        WHERE
+        chosencourse.st_id = student.st_id AND
+        chosencourse.sele_id = chosencoursedetail.sele_id;
+    </select>
+</mapper>
