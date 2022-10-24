@@ -12,7 +12,7 @@
         <el-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" v-on:click="Login()">登陆</el-button>
+        <el-button type="primary" style="width: 100%;" v-on:click="Login()">登陆</el-button>
       </el-form-item>
     </el-form>
   </body>
@@ -34,7 +34,7 @@
     border-radius: 15px;
     background-clip: padding-box;
     margin: 90px auto;
-    width: 350px;
+    width: 300px;
     padding: 35px 35px 15px 35px;
     background: #fff;
     border: 1px solid #eaeaea;
