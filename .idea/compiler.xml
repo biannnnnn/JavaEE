@@ -10,6 +10,7 @@
         <module name="Experiment02" />
         <module name="Experiment03_" />
         <module name="experiment01" />
+        <module name="Experiment05" />
         <module name="Experiment03" />
         <module name="Experiment03_Generator" />
         <module name="Experiment04" />
@@ -23,6 +24,7 @@
       <module name="Experiment03_" target="8" />
       <module name="Experiment03_Generator" target="8" />
       <module name="Experiment04" target="8" />
+      <module name="Experiment05" target="8" />
       <module name="maven_demo" target="8" />
     </bytecodeTargetLevel>
   </component>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fruitsalesplatform.mapper.UserMapper">
+    <!-- resultMap映射 -->
+    <resultMap id="userRM" type="com.fruitsalesplatform.entity.User">
+        <!-- 主键 -->
+        <id property="userId" column="userid" jdbcType="VARCHAR"/>
+        <!-- 一般属性 -->
+        <result property="userName" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="telephone" column="telephone"/>
+    </resultMap>
+
+    <!-- 查询一个数据 -->
+    <select id="get" parameterType="String" resultType="userRM">
+        SELECT * FROM FruitUser WHERE userid=#{userid};
+    </select>
+
+    <!-- 查询 -->
+    <select id="get" parameterType="String" resultMap="userRM">
+        SELECT * FROM FruitUser WHERE 1=1;
+        <if test="username != null"> and username=#{username}</if>
+        <if test="password != null"> and password=#{password}</if>
+        <if test="name != null"> nad name like #{name}</if>
+        <if test="telephone != null"> and telephone=#{telephone}</if>
+    </select>
+
+    <!-- 插入数据 -->
+    <insert id="insert" parameterType="com.fruitsalesplatform.entity.User">
+        INSERT INTO FruitUser(userid, username, password, name, telephone)
+        values (#{userId, jdbcType=VARCHAR},
+            #{userName, jdbcType=VARCHAR},
+            #{password, jdbcType=VARCHAR},
+            #{name, jdbcType=VARCHAR},
+            #{telephone, jdbcType=VARCHAR})
+    </insert>
+
+    <!-- 修改语句 -->
+    <update id="update" parameterType="com.fruitsalesplatform.entity.User">
+        UPDATE FruitUser
+        <set>
+            <if test="password != null">password=#{password, jdbcType=VARCHAR},</if>
+            <if test="name != null">name=#{name, jdbcType=VARCHAR},</if>
+            <if test="telephone != null">telephone=#{telephone, jdbcType=VARCHAR}</if>
+        </set>
+        WHERE userid=#{userId}
+    </update>
+
+    <!-- 删除一条 -->
+    <delete id="deleteById" parameterType="string">
+        DELETE FROM FruitUser WHERE userid=#{userId}
+    </delete>
+
+    <!-- 删除多条 -->
+    <delete id="delete" parameterType="String">
+        DELETE FROM FruitUser WHERE userid in
+        <foreach collection="array" item="userId" open="(" close=")" separator=",">
+            #{userId}
+        </foreach>
+    </delete>
+</mapper>
