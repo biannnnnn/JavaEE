@@ -1,24 +1,29 @@
 <template>
   <div id="poster">
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0px" label-position="left" class="register-container">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="0px" label-position="left"
+      class="register-container">
       <h3 class="register_title">
         系统注册
         <el-button @click="toLogin()">去登陆</el-button>
       </h3>
-      <el-form-item label="" prop="userName">
-        <el-input type="text" v-model="ruleForm.userName" placeholder="请输入用户名" prefix-icon="el-icon-user-solid"></el-input>
+      <el-form-item label="" prop="username">
+        <el-input type="text" v-model="ruleForm.username" placeholder="请输入用户名" prefix-icon="el-icon-user-solid">
+        </el-input>
       </el-form-item>
       <el-form-item label="" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off" placeholder="请输入密码" prefix-icon="el-icon-lock"></el-input>
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off" placeholder="请输入密码"
+          prefix-icon="el-icon-lock"></el-input>
       </el-form-item>
       <el-form-item label="" prop="checkPassword">
-        <el-input type="password" v-model="ruleForm.checkPassword" autocomplete="off" placeholder="请确认密码" prefix-icon="el-icon-lock"></el-input>
+        <el-input type="password" v-model="ruleForm.checkPassword" autocomplete="off" placeholder="请确认密码"
+          prefix-icon="el-icon-lock"></el-input>
       </el-form-item>
       <el-form-item label="" prop="name">
         <el-input type="text" v-model="ruleForm.name" placeholder="请输入姓名" prefix-icon="el-icon-user-solid"></el-input>
       </el-form-item>
-      <el-form-item label="" prop="phoneNumber">
-        <el-input type="text" v-model.number="ruleForm.phoneNumber" placeholder="请输入电话" prefix-icon="el-icon-phone"></el-input>
+      <el-form-item label="" prop="telephone">
+        <el-input type="text" v-model.number="ruleForm.telephone" placeholder="请输入电话" prefix-icon="el-icon-phone">
+        </el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm(ruleForm)">注册</el-button>
@@ -84,15 +89,15 @@ export default {
     };
     return {
       ruleForm: {
-        userName: '',
+        username: '',
         password: '',
         checkPassword: '',
         name: '',
-        phoneNumber: ''
+        telephone: ''
       },
       rules: {
-        userName: [
-          { required: true, message:"请输入用户名", trigger: 'blur' },
+        username: [
+          { required: true, message: "请输入用户名", trigger: 'blur' },
         ],
         password: [
           { validator: validatePass, trigger: 'blur' }
@@ -101,21 +106,35 @@ export default {
           { validator: validatePass2, trigger: 'blur' }
         ],
         name: [
-          { required: true, message:"请输入姓名", trigger: 'blur' },
+          { required: true, message: "请输入姓名", trigger: 'blur' },
         ],
-        phoneNumber: [
-          { required: true, message:"请输入电话号码", trigger: 'blur' },
+        telephone: [
+          { required: true, message: "请输入电话号码", trigger: 'blur' },
         ]
       }
     };
   },
   methods: {
-    
+    submitForm() {
+      this.axios.post('http://localhost:8888/user/register', this.ruleForm).then((resp) => {
+        console.log(resp);
+        let data = resp.data;
+        console.log(data);
+        if (data.success) {
+          this.ruleForm = {};
+          this.$message({
+            message: '恭喜你，注册成功，点击登录按钮进行登陆',
+            type: 'success'
+          });
+          this.$router.push({path:'/'})
+        }
+      })
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
     toLogin() {
-      this.$router.push({path:'/'})
+      this.$router.push({ path: '/' })
     }
   }
 }

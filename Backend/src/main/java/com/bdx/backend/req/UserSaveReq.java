@@ -1,15 +1,12 @@
-package com.bdx.backend.entity;
-
-import com.baomidou.mybatisplus.annotation.TableName;
+package com.bdx.backend.req;
 
 /**
  * @PROJECT_NAME: Backend
  * @DESCRIPTION:
  * @USER: bian
- * @DATE: 2022/10/24 14:16
+ * @DATE: 2022/10/24 14:48
  */
-@TableName("FruitUser")
-public class User {
+public class UserSaveReq {
     private int id;
     private String username;
     private String password;
