@@ -25,7 +25,13 @@
       <module name="Experiment03_Generator" target="8" />
       <module name="Experiment04" target="8" />
       <module name="Experiment05" target="8" />
+      <module name="Experiment_Final" target="1.5" />
       <module name="maven_demo" target="8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Experiment_Final" options="-parameters" />
+    </option>
   </component>
 </project>
