@@ -1,29 +1,31 @@
 package com.bdx.backend.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.util.List;
 
 /**
  * @PROJECT_NAME: Backend
  * @DESCRIPTION:
  * @USER: bian
- * @DATE: 2022/10/25 19:53
+ * @DATE: 2022/10/25 22:05
  */
-@TableName("commodities")
-public class Fruit {
+@TableName("accessory")
+public class Accessory {
     @TableId(type = IdType.AUTO)
+    private int accessoryId;
     private int fruitId;
     private String name;
     private double price;
-    private String locality;
     private String createTime;
-    //实现多表查询
-    @TableField(exist = false)
-    private List<Accessory> accessoryList;
+
+    public int getAccessoryId() {
+        return accessoryId;
+    }
+
+    public void setAccessoryId(int accessoryId) {
+        this.accessoryId = accessoryId;
+    }
 
     public int getFruitId() {
         return fruitId;
@@ -49,14 +51,6 @@ public class Fruit {
         this.price = price;
     }
 
-    public String getLocality() {
-        return locality;
-    }
-
-    public void setLocality(String locality) {
-        this.locality = locality;
-    }
-
     public String getCreateTime() {
         return createTime;
     }
@@ -65,21 +59,13 @@ public class Fruit {
         this.createTime = createTime;
     }
 
-    public List<Accessory> getAccessoryList() {
-        return accessoryList;
-    }
-
-    public void setAccessoryList(List<Accessory> accessoryList) {
-        this.accessoryList = accessoryList;
-    }
-
     @Override
     public String toString() {
-        return "Fruit{" +
-                "fruitId=" + fruitId +
+        return "Accessory{" +
+                "accessoryId=" + accessoryId +
+                ", fruitId=" + fruitId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", locality='" + locality + '\'' +
                 ", createTime='" + createTime + '\'' +
                 '}';
     }

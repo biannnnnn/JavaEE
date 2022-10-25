@@ -20,6 +20,8 @@
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button type="success" size="mini" @click="handleClick('父组件')">附属品</el-button>
+            <AccessoryView v-if="Visiable" ref="dialog"></AccessoryView>
           </template>
         </el-table-column>
       </el-table>
@@ -95,13 +97,15 @@
 
 <script>
 import NavBar from "../components/NavBar.vue";
+import AccessoryView from '../components/AccessoryView.vue'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 
 export default {
   name: 'FruitView',
   components: {
-    NavBar
+    NavBar,
+    AccessoryView
   },
 
   data: function () {
@@ -111,6 +115,7 @@ export default {
       dialogFormVisibleEdit: false,//编辑表单是否可见
       formData: {},//表单数据
       rules: {},
+      Visiable: false,
       pagination: {//分页相关模型数据
         currentPage: 1,//当前页码
         pageSize: 10,//每页显示的记录数
@@ -271,6 +276,17 @@ export default {
       }
       return time;
     },
+
+    // 弹窗界面
+    handleClick(data){
+          this.Visiable=true;
+          this.$nextTick(()=>{
+          //这里的dialog与上面dialog-component组件里面的ref属性值是一致的
+          //init调用的是dialog-component组件里面的init方法
+          //data是传递给弹窗页面的值
+          this.$refs.dialog.init(data);
+          })
+        },
   }
 }
 </script>
