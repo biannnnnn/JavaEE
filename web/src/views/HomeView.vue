@@ -14,9 +14,9 @@
         <el-table-column type="index" align="center" label="序号"></el-table-column>
         <el-table-column prop="type" label="姓名" align="center"></el-table-column>
         <el-table-column prop="name" label="手机号" align="center"></el-table-column>
-        <el-table-column prop="description" label="地址" align="center"></el-table-column>
-        <el-table-column prop="description" label="状态" align="center"></el-table-column>
-        <el-table-column prop="description" label="创建日期" align="center"></el-table-column>
+        <el-table-column prop="address" label="地址" align="center"></el-table-column>
+        <el-table-column prop="status" label="状态" align="center"></el-table-column>
+        <el-table-column prop="createTime" label="创建日期" align="center"></el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
@@ -32,23 +32,23 @@
       </div>
       <!-- 新增标签弹层 -->
       <div class="add-form">
-        <el-dialog title="新增图书" :visible.sync="dialogFormVisible">
+        <el-dialog title="新增零售商信息" :visible.sync="dialogFormVisible">
           <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="图书类别" prop="type">
+                <el-form-item label="姓名" prop="type">
                   <el-input v-model="formData.type" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="图书名称" prop="name">
+                <el-form-item label="手机" prop="name">
                   <el-input v-model="formData.name" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item label="描述">
+                <el-form-item label="地址">
                   <el-input v-model="formData.description" type="textarea"></el-input>
                 </el-form-item>
               </el-col>
@@ -136,19 +136,21 @@ export default {
     //条件查询与分页
     getAll() {
       //组织参数，拼接url请求地址
-      // console.log(this.pagination.type);
-      this.param = "?type=" + this.pagination.type;
-      this.param += "&name=" + this.pagination.name;
-      this.param += "&description=" + this.pagination.description;
+      //console.log("run");
+      // this.param = "?type=" + this.pagination.type;
+      // this.param += "&name=" + this.pagination.name;
+      // this.param += "&description=" + this.pagination.description;
       // console.log(param);
 
       //发送异步请求
-      this.axios.get("/books/" + this.pagination.currentPage + "/" + this.pagination.pageSize + this.param).then((res) => {
-        this.pagination.pageSize = res.data.data.size;
-        this.pagination.currentPage = res.data.data.current;
-        this.pagination.total = res.data.data.total;
+      this.axios.get("http://localhost:8888/retailers").then((res) => {
+        // console.log(res.data);
+        this.dataList = res.data.data;
+        // this.pagination.pageSize = res.data.data.size;
+        // this.pagination.currentPage = res.data.data.current;
+        // this.pagination.total = res.data.data.total;
 
-        this.dataList = res.data.data.records;
+        // this.dataList = res.data.data.records;
       });
     },
 
@@ -173,7 +175,7 @@ export default {
 
     //添加
     handleAdd() {
-      this.axios.post("/books", this.formData).then((res) => {
+      this.axios.post("http://localhost:8888/retailers", this.formData).then((res) => {
         //判断当前操作是否成功
         if (res.data.flag) {
           //1.关闭弹层
@@ -199,7 +201,7 @@ export default {
     handleDelete(row) {
       // console.log(row);
       this.$confirm("此操作永久删除当前信息，是否继续？", "提示", { type: "info" }).then(() => {
-        this.axios.delete("/books/" + row.id).then((res) => {
+        this.axios.delete("http://localhost:8888/retailers/" + row.id).then((res) => {
           if (res.data.flag) {
             this.$message.success("删除成功");
           } else {
@@ -216,7 +218,7 @@ export default {
 
     //弹出编辑窗口
     handleUpdate(row) {
-      this.axios.get("/books/" + row.id).then((res) => {
+      this.axios.get("http://localhost:8888/retailers/" + row.id).then((res) => {
         if (res.data.flag && res.data.data != null) {
           this.dialogFormVisibleEdit = true;
           this.formData = res.data.data;
@@ -231,7 +233,7 @@ export default {
 
     //修改
     handleEdit() {
-      this.axios.put("/books", this.formData).then((res) => {
+      this.axios.put("http://localhost:8888/retailers", this.formData).then((res) => {
         //判断当前操作是否成功
         if (res.data.flag) {
           //1.关闭弹层

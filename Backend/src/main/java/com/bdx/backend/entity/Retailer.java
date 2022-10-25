@@ -1,5 +1,7 @@
 package com.bdx.backend.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
@@ -10,6 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
  */
 @TableName("retailer")
 public class Retailer {
+    @TableId(type = IdType.AUTO)
     private int retailerId;
     private String name;
     private String telephone;

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bdx.backend.entity.Retailer;
 import com.bdx.backend.mapper.RetailerMapper;
 import com.bdx.backend.service.RetailerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Service
 public class RetailerServiceImpl implements RetailerService {
+    @Autowired
     private RetailerMapper retailerMapper;
 
     @Override

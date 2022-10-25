@@ -1,12 +1,10 @@
 package com.bdx.backend.controller;
 
-import com.bdx.backend.entity.User;
 import com.bdx.backend.req.UserLoginReq;
 import com.bdx.backend.req.UserSaveReq;
 import com.bdx.backend.resp.CommonResp;
 import com.bdx.backend.resp.UserLoginResp;
 import com.bdx.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
