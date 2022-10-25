@@ -1,5 +1,6 @@
 package com.bdx.backend.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bdx.backend.controller.utils.Result;
 import com.bdx.backend.entity.Retailer;
 import com.bdx.backend.service.RetailerService;
@@ -44,7 +45,14 @@ public class RetailerController {
     }
 
     @GetMapping("{currentPage}/{pageSize}")
-    public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize) {
-        return new Result(true, retailerService.getPage(currentPage, pageSize));
+    public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize, Retailer retailer) {
+        System.out.println("---------");
+        System.out.println(retailer);
+        System.out.println("---------");
+        IPage<Retailer> page = retailerService.getPage(currentPage, pageSize, retailer);
+        if(currentPage > page.getPages()) {
+            page = retailerService.getPage((int)page.getPages(), pageSize, retailer);
+        }
+        return new Result(true, page);
     }
 }

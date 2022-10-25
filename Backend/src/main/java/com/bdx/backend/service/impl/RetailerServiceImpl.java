@@ -1,10 +1,12 @@
 package com.bdx.backend.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bdx.backend.entity.Retailer;
 import com.bdx.backend.mapper.RetailerMapper;
 import com.bdx.backend.service.RetailerService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,8 +49,12 @@ public class RetailerServiceImpl implements RetailerService {
     }
 
     @Override
-    public IPage<Retailer> getPage(int currentPage, int pageSize) {
+    public IPage<Retailer> getPage(int currentPage, int pageSize, Retailer retailer) {
+        LambdaQueryWrapper<Retailer> lqw = new LambdaQueryWrapper();
+        lqw.like(Strings.isNotEmpty(retailer.getName()), Retailer::getName, retailer.getName());
+        lqw.like(Strings.isNotEmpty(retailer.getTelephone()), Retailer::getTelephone, retailer.getTelephone());
+        lqw.like(Strings.isNotEmpty(retailer.getAddress()), Retailer::getAddress, retailer.getAddress());
         IPage page = new Page(currentPage, pageSize);
-        return retailerMapper.selectPage(page, null);
+        return retailerMapper.selectPage(page, lqw);
     }
 }

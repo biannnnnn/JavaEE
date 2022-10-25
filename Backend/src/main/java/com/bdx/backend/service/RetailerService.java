@@ -19,5 +19,5 @@ public interface RetailerService {
     Boolean update(Retailer retailer);
     Retailer getById(int id);
     List<Retailer> getAll();
-    IPage<Retailer> getPage(int currentPage, int pageSize);
+    IPage<Retailer> getPage(int currentPage, int pageSize, Retailer retailer);
 }
