@@ -46,9 +46,7 @@ public class RetailerController {
 
     @GetMapping("{currentPage}/{pageSize}")
     public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize, Retailer retailer) {
-        System.out.println("---------");
         System.out.println(retailer);
-        System.out.println("---------");
         IPage<Retailer> page = retailerService.getPage(currentPage, pageSize, retailer);
         if(currentPage > page.getPages()) {
             page = retailerService.getPage((int)page.getPages(), pageSize, retailer);

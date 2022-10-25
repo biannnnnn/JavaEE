@@ -1,21 +1,20 @@
 <template>
-  <div class="home">
+  <div>
     <NavBar />
     <div class="box">
       <div class="filter-container">
-        <el-input placeholder="姓名" v-model="pagination.name" style="width: 200px;" class="filter-item"></el-input>
-        <el-input placeholder="电话" v-model="pagination.telephone" style="width: 200px;" class="filter-item"></el-input>
-        <el-input placeholder="地址" v-model="pagination.address" style="width: 200px;" class="filter-item">
+        <el-input placeholder="名称" v-model="pagination.name" style="width: 200px;" class="filter-item"></el-input>
+        <el-input placeholder="价格" v-model="pagination.price" style="width: 200px;" class="filter-item"></el-input>
+        <el-input placeholder="产地" v-model="pagination.locality" style="width: 200px;" class="filter-item">
         </el-input>
         <el-button @click="getAll()" class="dalfBut">查询</el-button>
         <el-button type="primary" class="butT" @click="handleCreate()">添加</el-button>
       </div>
       <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
-        <el-table-column prop="retailerId" align="center" label="序号"></el-table-column>
-        <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-        <el-table-column prop="telephone" label="电话号" align="center"></el-table-column>
-        <el-table-column prop="address" label="地址" align="center"></el-table-column>
-        <el-table-column prop="status" label="状态" align="center"></el-table-column>
+        <el-table-column prop="fruitId" align="center" label="序号"></el-table-column>
+        <el-table-column prop="name" label="名称" align="center"></el-table-column>
+        <el-table-column prop="price" label="价格" align="center"></el-table-column>
+        <el-table-column prop="locality" label="产地" align="center"></el-table-column>
         <el-table-column prop="createTime" label="创建日期" align="center"></el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
@@ -32,24 +31,24 @@
       </div>
       <!-- 新增标签弹层 -->
       <div class="add-form">
-        <el-dialog title="新增零售商信息" :visible.sync="dialogFormVisible">
+        <el-dialog title="新增产品信息" :visible.sync="dialogFormVisible">
           <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="姓名" prop="type">
+                <el-form-item label="姓名" prop="name">
                   <el-input v-model="formData.name" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="电话" prop="name">
-                  <el-input v-model="formData.telephone" />
+                <el-form-item label="价格" prop="price">
+                  <el-input v-model="formData.price" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item label="地址">
-                  <el-input v-model="formData.address" type="textarea"></el-input>
+                <el-form-item label="产地">
+                  <el-input v-model="formData.locality" type="textarea"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -66,20 +65,20 @@
           <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="姓名" prop="name">
+                <el-form-item label="名称" prop="name">
                   <el-input v-model="formData.name" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="电话" prop="telephone">
-                  <el-input v-model="formData.telephone" />
+                <el-form-item label="价格" prop="price">
+                  <el-input v-model="formData.price" />
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="23">
-                <el-form-item label="地址">
-                  <el-input v-model="formData.address" type="textarea"></el-input>
+                <el-form-item label="产地">
+                  <el-input v-model="formData.locality" type="textarea"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -100,7 +99,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 
 export default {
-  name: 'HomeView',
+  name: 'FruitView',
   components: {
     NavBar
   },
@@ -117,8 +116,8 @@ export default {
         pageSize: 10,//每页显示的记录数
         total: 0,//总记录数
         name: "",
-        telephone: "",
-        address: ""
+        price: "",
+        locality: ""
       }
     }
   },
@@ -136,19 +135,26 @@ export default {
       //组织参数，拼接url请求地址
       //console.log("run");
       this.param = "?name=" + this.pagination.name;
-      this.param += "&telephone=" + this.pagination.telephone;
-      this.param += "&address=" + this.pagination.address;
+      // 真的吐了，发送请求报400错误，搞了快一个小时人都崩溃了，md原来是这里的类型与后端不一样
+      // 后端类型是double型，而这里默认的是Sring型，需要强制类型转换成Number型
+      // 这个小错误真的搞得我快吐了
+      this.param += "&price=" + Number(this.pagination.price);
+      this.param += "&locality=" + this.pagination.locality;
       console.log(this.param);
 
       //发送异步请求
-      this.axios.get("http://localhost:8888/retailers/" + this.pagination.currentPage + "/" + this.pagination.pageSize + this.param).then((res) => {
+      this.axios.get("http://localhost:8888/fruits/" + this.pagination.currentPage + "/" + this.pagination.pageSize + this.param).then((res) => {
         // console.log(res.data);
         this.dataList = res.data.data.records;
         this.pagination.pageSize = res.data.data.size;
         this.pagination.currentPage = res.data.data.current;
         this.pagination.total = res.data.data.total;
         this.dataList = res.data.data.records;
-      });
+     });
+        // this.axios.get("http://localhost:8888/fruits/").then((res) => {
+        //     console.log(res.data);
+        //     this.dataList = res.data.data;
+        // });
     },
 
     //切换页码
@@ -174,7 +180,7 @@ export default {
     handleAdd() {
       this.formData.status = 1;
       this.formData.createTime = this.formatDateValue(new Date());
-      this.axios.post("http://localhost:8888/retailers", this.formData).then((res) => {
+      this.axios.post("http://localhost:8888/fruits", this.formData).then((res) => {
         // 判断当前操作是否成功
         if (res.data.flag) {
           // 1.关闭弹层
@@ -200,7 +206,7 @@ export default {
     handleDelete(row) {
       // console.log(row);
       this.$confirm("此操作永久删除当前信息，是否继续？", "提示", { type: "info" }).then(() => {
-        this.axios.delete("http://localhost:8888/retailers/" + row.retailerId).then((res) => {
+        this.axios.delete("http://localhost:8888/fruits/" + row.fruitId).then((res) => {
           if (res.data.flag) {
             this.$message.success("删除成功");
           } else {
@@ -217,7 +223,7 @@ export default {
 
     // 弹出编辑窗口
     handleUpdate(row) {
-      this.axios.get("http://localhost:8888/retailers/" + row.retailerId).then((res) => {
+      this.axios.get("http://localhost:8888/fruits/" + row.fruitId).then((res) => {
         if (res.data.flag && res.data.data != null) {
           this.dialogFormVisibleEdit = true;
           this.formData = res.data.data;
@@ -232,7 +238,7 @@ export default {
 
     // 修改
     handleEdit() {
-      this.axios.put("http://localhost:8888/retailers", this.formData).then((res) => {
+      this.axios.put("http://localhost:8888/fruits", this.formData).then((res) => {
         // 判断当前操作是否成功
         if (res.data.flag) {
           // 1.关闭弹层

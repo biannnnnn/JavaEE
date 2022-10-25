@@ -9,13 +9,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">货物管理</a>
+                        <a class="nav-link" href="#/FruitView">货物管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">零售商管理</a>
+                        <a class="nav-link" href="#/HomeView">零售商管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">购销合同</a>
+                        <a class="nav-link" href="#/ContractView">购销合同</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">用户设置</a>
@@ -25,12 +25,3 @@
         </div>
     </nav>
 </template>
-
-<style>
-
-</style>
-
-<script>
-
-</script>
-
