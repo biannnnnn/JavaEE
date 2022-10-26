@@ -3,6 +3,7 @@ package com.bdx.backend.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bdx.backend.entity.Accessory;
 import com.bdx.backend.entity.Fruit;
 import com.bdx.backend.mapper.FruitMapper;
 import com.bdx.backend.service.FruitService;
@@ -56,5 +57,10 @@ public class FruitServiceImpl implements FruitService {
         lqw.like(Strings.isNotEmpty(fruit.getLocality()), Fruit::getLocality, fruit.getLocality());
         IPage page = new Page(currentPage, pageSize);
         return fruitMapper.selectPage(page, lqw);
+    }
+
+    @Override
+    public List<Accessory> getAccessories(int fruitid) {
+        return fruitMapper.getAccessories(fruitid);
     }
 }

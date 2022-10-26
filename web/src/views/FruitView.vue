@@ -20,7 +20,7 @@
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
             <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
-            <el-button type="success" size="mini" @click="handleClick('父组件')">附属品</el-button>
+            <el-button type="success" size="mini" @click="handleClick(scope.row)">附属品</el-button>
             <AccessoryView v-if="Visiable" ref="dialog"></AccessoryView>
           </template>
         </el-table-column>
@@ -284,7 +284,8 @@ export default {
           //这里的dialog与上面dialog-component组件里面的ref属性值是一致的
           //init调用的是dialog-component组件里面的init方法
           //data是传递给弹窗页面的值
-          this.$refs.dialog.init(data);
+          this.$refs.dialog.init(data.fruitId);
+          this.$refs.dialog.getAll(data.fruitId);
           })
         },
   }

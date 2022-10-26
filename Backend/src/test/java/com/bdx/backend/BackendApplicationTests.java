@@ -40,4 +40,12 @@ class BackendApplicationTests {
         //fruitMapper.selectById(1);
         fruitService.getById(1);
     }
+
+    @Test
+    public void getAccessories() {
+        System.out.println("-------");
+        //fruitMapper.getAccessories(2).toString();
+        fruitService.getAccessories(2);
+        System.out.println("-------");
+    }
 }

@@ -1,6 +1,7 @@
 package com.bdx.backend.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bdx.backend.entity.Accessory;
 import com.bdx.backend.entity.Fruit;
 import com.bdx.backend.entity.Retailer;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,5 @@ public interface FruitService {
     Fruit getById(int id);
     List<Fruit> getAll();
     IPage<Fruit> getPage(int currentPage, int pageSize, Fruit fruit);
+    List<Accessory> getAccessories(int fruitid);
 }

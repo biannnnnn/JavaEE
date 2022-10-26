@@ -89,9 +89,9 @@ export default {
             console.log(data);
         },
 
-        //条件查询与分页
-        getAll() {
-            this.axios.get("http://localhost:8888/accessory/").then((res) => {
+        getAll(fruitId) {
+            console.log(fruitId);
+            this.axios.get("http://localhost:8888/fruits/" + fruitId).then((res) => {
                 console.log(res.data);
                 this.dataList = res.data.data;
             });

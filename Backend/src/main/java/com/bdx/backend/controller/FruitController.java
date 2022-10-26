@@ -39,10 +39,10 @@ public class FruitController {
         return new Result(fruitService.delete(id));
     }
 
-    @GetMapping("{id}")
-    public Result getById(@PathVariable int id) {
-        return new Result(true, fruitService.getById(id));
-    }
+//    @GetMapping("{id}")
+//    public Result getById(@PathVariable int id) {
+//        return new Result(true, fruitService.getById(id));
+//    }
 
     @GetMapping("{currentPage}/{pageSize}")
     public Result getPage(@PathVariable int currentPage, @PathVariable int pageSize, Fruit fruit) {
@@ -54,5 +54,13 @@ public class FruitController {
             page = fruitService.getPage((int)page.getPages(), pageSize, fruit);
         }
         return new Result(true, page);
+    }
+
+    @GetMapping("{id}")
+    public Result getAccessories(@PathVariable int id) {
+        System.out.println("----------------");
+        System.out.println(id);
+        System.out.println("-----------------");
+        return new Result(true, fruitService.getAccessories(id));
     }
 }

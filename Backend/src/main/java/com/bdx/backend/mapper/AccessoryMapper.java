@@ -2,7 +2,11 @@ package com.bdx.backend.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bdx.backend.entity.Accessory;
+import com.bdx.backend.vo.FruitAccessoryVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @PROJECT_NAME: Backend
