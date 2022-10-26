@@ -7,7 +7,7 @@
         <el-button @click="toRegister()">点我注册</el-button>
       </h3>
       <el-form-item label="">
-        <el-input type="text" v-model="loginForm.loginName" autocomplete="off" placeholder="账号"></el-input>
+        <el-input type="text" v-model="loginForm.username" autocomplete="off" placeholder="账号"></el-input>
       </el-form-item>
       <el-form-item label="">
         <el-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"></el-input>
@@ -68,13 +68,18 @@ export default {
       this.axios.post('http://localhost:8888/user/login', this.loginForm).then((resp) => {
         let data = resp.data;
         console.log(data);
-        if (data.success) {
+        if (data.flag) {
           this.loginForm = {};
           this.$message({
-            message: '成功登陆，欢迎您' + this.loginForm.loginName,
+            message: '成功登陆，欢迎您',
             type: 'success'
           });
           this.$router.push({ path: '/HomeView' })
+        } else {
+          this.$message({
+            message: '对不起，您输入的用户名或密码有误，请重新输入',
+            type: 'error'
+          });
         }
       })
     },

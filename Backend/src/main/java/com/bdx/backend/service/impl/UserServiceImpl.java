@@ -32,7 +32,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private SnowFlakeId snowFlakeId;
 
     @Override
-    public void register(UserSaveReq userSaveReq) {
+    public User register(UserSaveReq userSaveReq) {
         User user = CopyUtil.copy(userSaveReq, User.class);
         System.out.println(user.toString());
         if(userSaveReq.getId() == 0) {
@@ -43,7 +43,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 System.out.println("dwa");
                 System.out.println(user.toString());
                 userMapper.insert(user);
+                return null;
+            } else {
+                return userDb;
             }
+        } else {
+            return user;
         }
     }
 
@@ -57,14 +62,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // 用户不存在
             return null;
         } else {
-            // 登陆成功
-            UserLoginResp resp = CopyUtil.copy(userDb, UserLoginResp.class);
-            return resp;
+            if (userLoginReq.getPassword().equals(userDb.getPassword())) {
+                // 登陆成功
+                UserLoginResp resp = CopyUtil.copy(userDb, UserLoginResp.class);
+                return resp;
+            } else {
+                return null;
+            }
         }
     }
 
     // 查询用户名是否被注册
     public User selectByUsername(String username) {
+        System.out.println(username);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(User::getUsername, username);
         List<User> userList = userMapper.selectList(wrapper);

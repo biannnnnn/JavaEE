@@ -127,6 +127,11 @@ export default {
             type: 'success'
           });
           this.$router.push({path:'/'})
+        } else {
+          this.$message({
+            message: '对不起，您注册的用户已存在，请重新注册',
+            type: 'error'
+          });
         }
       })
     },

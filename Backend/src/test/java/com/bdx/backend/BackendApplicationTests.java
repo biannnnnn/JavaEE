@@ -1,12 +1,18 @@
 package com.bdx.backend;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bdx.backend.entity.User;
 import com.bdx.backend.mapper.FruitMapper;
 import com.bdx.backend.mapper.RetailerMapper;
+import com.bdx.backend.mapper.UserMapper;
 import com.bdx.backend.service.FruitService;
 import com.bdx.backend.service.RetailerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 @SpringBootTest
 class BackendApplicationTests {
@@ -19,6 +25,9 @@ class BackendApplicationTests {
 
     @Autowired
     private FruitMapper fruitMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private FruitService fruitService;
@@ -47,5 +56,18 @@ class BackendApplicationTests {
         //fruitMapper.getAccessories(2).toString();
         fruitService.getAccessories(2);
         System.out.println("-------");
+    }
+
+    @Test
+    public void selectByUsername() {
+        System.out.println("wd");
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(User::getUsername, "biand");
+        List<User> userList = userMapper.selectList(wrapper);
+        if(CollectionUtils.isEmpty(userList)) {
+            System.out.println("null");
+        } else {
+            userList.get(0).toString();
+        }
     }
 }

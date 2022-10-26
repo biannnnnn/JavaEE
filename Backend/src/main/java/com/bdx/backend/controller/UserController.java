@@ -1,5 +1,7 @@
 package com.bdx.backend.controller;
 
+import com.bdx.backend.controller.utils.Result;
+import com.bdx.backend.entity.User;
 import com.bdx.backend.req.UserLoginReq;
 import com.bdx.backend.req.UserSaveReq;
 import com.bdx.backend.resp.CommonResp;
@@ -27,19 +29,27 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    private CommonResp register(@RequestBody UserSaveReq userSaveReq) {
+    private Result register(@RequestBody UserSaveReq userSaveReq) {
         userSaveReq.setPassword(DigestUtils.md5DigestAsHex(userSaveReq.getPassword().getBytes()));
-        CommonResp resp = new CommonResp();
-        userService.register(userSaveReq);
-        return resp;
+        Result result = new Result();
+        User user = userService.register(userSaveReq);
+        if (user == null) {
+            result.setFlag(false);
+        }
+        return result;
     }
 
     @PostMapping("/login")
-    public CommonResp login(@RequestBody UserLoginReq userLoginReq) {
+    public Result login(@RequestBody UserLoginReq userLoginReq) {
         userLoginReq.setPassword(DigestUtils.md5DigestAsHex(userLoginReq.getPassword().getBytes()));
-        CommonResp resp = new CommonResp();
+        Result result = new Result();
         UserLoginResp loginResp = userService.login(userLoginReq);
-        resp.setContent(loginResp);
-        return resp;
+        if (loginResp == null) {
+            result.setFlag(false);
+        } else {
+            result.setData(loginResp);
+            result.setFlag(true);
+        }
+        return result;
     }
 }

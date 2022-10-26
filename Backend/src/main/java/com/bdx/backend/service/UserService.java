@@ -1,8 +1,10 @@
 package com.bdx.backend.service;
 
+import com.bdx.backend.entity.User;
 import com.bdx.backend.req.UserLoginReq;
 import com.bdx.backend.req.UserSaveReq;
 import com.bdx.backend.resp.UserLoginResp;
+import org.springframework.stereotype.Service;
 
 /**
  * @PROJECT_NAME: Backend
@@ -10,8 +12,9 @@ import com.bdx.backend.resp.UserLoginResp;
  * @USER: bian
  * @DATE: 2022/10/24 14:28
  */
+@Service
 public interface UserService {
-    void register(UserSaveReq userSaveReq);
+    User register(UserSaveReq userSaveReq);
 
     UserLoginResp login(UserLoginReq userLoginReq);
 }
