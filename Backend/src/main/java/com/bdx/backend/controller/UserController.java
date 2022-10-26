@@ -33,7 +33,10 @@ public class UserController {
         userSaveReq.setPassword(DigestUtils.md5DigestAsHex(userSaveReq.getPassword().getBytes()));
         Result result = new Result();
         User user = userService.register(userSaveReq);
+        System.out.println(user);
         if (user == null) {
+            result.setFlag(true);
+        } else {
             result.setFlag(false);
         }
         return result;

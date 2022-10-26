@@ -120,7 +120,7 @@ export default {
         console.log(resp);
         let data = resp.data;
         console.log(data);
-        if (data.success) {
+        if (data.flag) {
           this.ruleForm = {};
           this.$message({
             message: '恭喜你，注册成功，点击登录按钮进行登陆',

@@ -85,6 +85,7 @@ export default {
         //3.定义一个init函数，通过设置detailVisible值为true来让弹窗弹出，这个函数会在父组件的方法中被调用
         init(data) {
             this.detailVisible = true;
+            this.formData.fruitId = data;
             //data是父组件弹窗传递过来的值，我们可以打印看看
             console.log(data);
         },
@@ -118,8 +119,8 @@ export default {
 
         // 添加
         handleAdd() {
-            this.formData.status = 1;
             this.formData.createTime = this.formatDateValue(new Date());
+            this.formData.fruitId = 5;
             this.axios.post("http://localhost:8888/accessory", this.formData).then((res) => {
                 // 判断当前操作是否成功
                 if (res.data.flag) {
