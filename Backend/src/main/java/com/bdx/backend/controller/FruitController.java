@@ -58,9 +58,6 @@ public class FruitController {
 
     @GetMapping("{id}")
     public Result getAccessories(@PathVariable int id) {
-        System.out.println("----------------");
-        System.out.println(id);
-        System.out.println("-----------------");
         return new Result(true, fruitService.getAccessories(id));
     }
 }

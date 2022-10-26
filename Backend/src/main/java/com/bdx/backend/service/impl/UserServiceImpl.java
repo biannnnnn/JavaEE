@@ -50,6 +50,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserLoginResp login(UserLoginReq userLoginReq) {
         User userDb = selectByUsername(userLoginReq.getUsername());
+        System.out.println("----");
+        System.out.println(userDb);
+        System.out.println("----");
         if (ObjectUtils.isEmpty(userDb)) {
             // 用户不存在
             return null;
